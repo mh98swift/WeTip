@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    //comit
-    
+        
     init(){
         UITableView.appearance().backgroundColor = .clear
     }
@@ -26,13 +24,10 @@ struct ContentView: View {
         let tipAmount: Double = (amount * Double(tipPercent)) / 100
         let totalCheckWithTip = tipAmount + amount
         let amountPerPersonWithTip = totalCheckWithTip / countOfPeople
-        
         return amountPerPersonWithTip
     }
     
     var body: some View {
-        
-        
         NavigationView{
             Form{
                 TextField("Amount", value: $amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
@@ -44,9 +39,7 @@ struct ContentView: View {
                             Text("\($0)")
                         }
                     }.pickerStyle(.segmented)
-                } header: {
-                    Text("How many People")
-                }
+                } header: {Text("How many People") }
                 
                 Section{
                     Picker("Tip Amount", selection: $tipPercent) {
@@ -55,19 +48,18 @@ struct ContentView: View {
                         }
                     }
                     .pickerStyle(.segmented)
+//                    ChosenTipTextColor(tipPercent)
                 } header: {
                     Text("How much tip would you like to leave")
                 }
                 
                 Text(totalTipPerPerson, format: .currency(code: Locale.current.currencyCode ?? "USD"))
-                    .foregroundColor(Color.gray)
+                    .foregroundColor(tipPercent == 0 ? Color.red : Color.gray)
                 
-               
             }.background(Color.mint)
                 .foregroundColor(Color.white)
                 .navigationTitle("WeTip").foregroundColor(.indigo)
         }
-      
     }
 }
 
